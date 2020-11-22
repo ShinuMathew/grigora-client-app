@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Staatliches|ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.6/fetch-jsonp.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="homeheadsection jumbotron">
+        <div class="page-header homeheader">
+          <img src="Robo_Logo.png" height="100px" width="120px" />
+          <h1 class="heading">E2E_INTEGRATION DASHBOARD</h1>
+        </div>
+        <nav class="navbar navbar-light bg-light">
+          <h2 class="searchtxt">SEARCH FOR LATEST TEST RUNS&emsp;&emsp;</h2>
+          <select class="browser-default custom-select" id="tenant" aria-label="Search">
+            <option value="default" selected>Select Tenant</option>
+            <option value="gbr">GBR</option>
+            <option value="fra">FRA</option>
+            <option value="deu">DEU</option>
+            <option value="nld">NLD</option>
+            <option value="blg">BLG</option>
+          </select>
+          <select class="browser-default custom-select" id="env" aria-label="Search">
+            <option value="default" selected>Select Environment</option>
+            <option value="local">LOCAL</option>
+            <option value="qa">QA</option>
+          </select>
+          <button id="searchbtn" class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getTestRuns()" disabled>
+            Search
+          </button>
+        </nav>
+      </div>
+    </div>
+    <div>
+      <div id="errormsg"></div>
+      <table class="testruns table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">SNO.</th>
+            <th scope="col">RUNID</th>
+            <th scope="col">TENANT</th>
+            <th scope="col">SUITE</th>
+            <th scope="col">ENVIRONMENT</th>
+            <th scope="col">PROCESSEDTAG</th>
+            <th scope="col">RUNDATE</th>
+          </tr>
+        </thead>
+        <tbody id="runids"></tbody>
+      </table>
+    </div>
+    <script>
+        document.getElementById("tenant").addEventListener("keyup", disableHomeSrch)
+        function deleteTestRun(res, tenant, orderIds){
+  let resArr = []
+  try{
+    orderIds.forEach(orderId=>{
+      let response = deleteOrders(tenant, orderId)
+      resArr.push(`${orderId} ==> ${response}`)  
+    })
+    res.status(200).json(resArr)
+  } catch(err){
+    res.status(500).json(err)
+  }
+}
+
+function deleteOrders(res, tenant, orderId){
+  let requrl = `http://localhost:9200/e2e_${tenant.toLowerCase()}_orderinfo/orders/${orderId}`
+  request.delete({
+    url: requrl
+  }, (err, httpResponse, body)=>{
+    console.log(httpResponse.statusCode)
+    if(httpResponse.statusCode == 200){
+      if(body.result == "deleted"){
+        return "Success"
+      } else if(body.result == "not_found"){
+        return "Resource Missing"
+      }
+    } else{
+      return `Error occured while deleting the record. StatusCode: ${httpResponse.statusCode}`
+    }
+  })
+}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Staatliches|ZCOOL+XiaoWei&display=swap" rel="stylesheet"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch-jsonp/1.0.6/fetch-jsonp.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body onload="loadRunInfos()">
+    <div class="container">
+      <div class="jumbotron headsection">
+        <div class="page-header header">
+          <img src="Robo_Logo.png" height="100px" width="120px" />
+          <h1 class="heading">GRIGORA CLIENT APP</h1>
+        </div>
+        <nav class="navbar navbar-light bg-light">
+          <h2 class="searchtxt">Enter RunID to be searched&emsp;</h2>
+          <input id="runid" class="form-control mr-sm-2" type="search" placeholder="RunID" aria-label="Search"/>
+          <select class="browser-default custom-select" id="env" aria-label="Search">
+            <option value="default" selected>Select Environment</option>
+            <option value="local">LOCAL</option>
+            <option value="qa">QA</option>
+          </select>
+          <button id="searchbtn" class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="getRunInfo()" disabled>
+            Search
+          </button>
+        </nav>
+      </div>
+    </div>
+    <div>
+      <div class="gohome">
+        <a class="btn btn-primary" href="home.html">HOME</a>
+      </div>
+      <div id="errormsg"></div>
+      <table class="testcases table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">SNO.</th>
+            <th scope="col">CASEID</th>
+            <th scope="col">TCNAME</th>
+            <th scope="col">TCDESC</th>
+            <th scope="col">POID</th>
+            <th scope="col">RUNID</th>
+            <th scope="col">TESTSUITE</th>
+            <th scope="col">ENV</th>
+            <th scope="col">PAYMENT</th>
+            <th scope="col">ORDERSTATUS</th>
+            <th scope="col">PROCESSEDTAG</th>
+            <th scope="col">RESULT</th>
+          </tr>
+        </thead>
+        <tbody id="runinfos">
+        </tbody>
+      </table>
+    </div>
+    <script>
+    document.getElementById("runid").addEventListener("keyup", disableSearch)
+    document.onreadystatechange = function () {
+      var state = document.readyState
+      if (state == 'complete') {
+        document.getElementById('interactive');
+        document.getElementById('load').style.visibility="hidden";
+      } else {
+        document.getElementById('load').style.visibility="visible";
+      }
+    }
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
+<!-- var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = document.getElementsByClassName("content");
+          if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+          }
+        });
+      } -->
