@@ -306,16 +306,13 @@ function fetchRunInfo() {
   let testrunid = document.getElementById("runid").value;
   let runinfo = "";
   fetch(
-    "https://eu-qa-kibanalog.seasam.org:3324/api/console/proxy?path=e2e_gbr_orderinfo%2F_search&method=POST",
+    `https://${host}/api/console/proxy?${uri}`,
     {
       method: "POST",
       headers: {
         "Content-Type": "text/plain",
-        authorization: "Basic a2liYW5hdXNlcjpraWJhbmF1c2VyMTIz",
-        "cookie:s_ecom_ops_login_type":
-          "; s_ecom_ops_jwt=ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6VXhNaUo5LmV5SnpZMmhsYldGZmRtVnljMmx2YmlJNklqRXVNQ0lzSW1sa0lqb2lOR1UyTVRnelpXVXRNbVUzT1MwME1qQTBMV0prTm1FdE1EVTFZVGd3TnpGaVpXVTNJaXdpWlcxaGFXd2lPaUp6WVhKaGRHZ3VhMnBBY0dGeWRHNWxjaTV6WVcxemRXNW5MbU52YlNJc0luQmxjbTFwYzNOcGIyNXpJanA3SW05eVpHVnlJanA3SW1Gc2JHOTNJanBiSW5KbFlXUWlMQ0p5WlhGMVpYTjBJaXdpZDNKcGRHVWlYU3dpY0hKdmJXOGlPbnNpWVd4c2IzY2lPbHNpY21WaFpDSmRmWDBzSW5aaGRDSTZleUpoYkd4dmR5STZXeUp5WldGa0lpd2lkM0pwZEdVaVhYMHNJbWx1ZG1WdWRHOXllV0oxWTJ0bGRDSTZleUpoYkd4dmR5STZXeUp5WldGa0lpd2ljbVZ4ZFdWemRDSXNJbmR5YVhSbElsMTlMQ0p3Y205a2RXTjBJanA3SW1Gc2JHOTNJanBiSW5KbFlXUWlMQ0ozY21sMFpTSXNJbkpsY1hWbGMzUWlYU3dpWTI5dVptbG5JanA3SW1Gc2JHOTNJanBiSW5KbFlXUWlMQ0p5WlhGMVpYTjBJaXdpZDNKcGRHVWlYWDE5TENKMGNtRmtaV2x1SWpwN0ltRnNiRzkzSWpwYkluSmxZV1FpTENKeVpYRjFaWE4wSWl3aWQzSnBkR1VpWFgwc0luVndaM0poWkdVaU9uc2lZV3hzYjNjaU9sc2ljbVZoWkNJc0luSmxjWFZsYzNRaUxDSjNjbWwwWlNKZGZTd2ljMjFpSWpwN0ltRnNiRzkzSWpwYkluSmxZV1FpTENKeVpYRjFaWE4wSWl3aWQzSnBkR1VpWFgwc0ltSjFiR3N0ZFhCc2IyRmtJanA3SW1Gc2JHOTNJanBiSW5KbFlXUWlMQ0p5WlhGMVpYTjBJaXdpZDNKcGRHVWlYWDBzSW1Wd2NDSTZleUpoYkd4dmR5STZXeUp5WldGa0lpd2ljbVZ4ZFdWemRDSXNJbmR5YVhSbElsMTlMQ0p2Wm1abGNpSTZleUpoYkd4dmR5STZXeUp5WldGa0lpd2ljbVZ4ZFdWemRDSXNJbmR5YVhSbElsMTlMQ0p3Y21salpTSTZleUpoYkd4dmR5STZXeUp5WldGa0lpd2ljbVZ4ZFdWemRDSXNJbmR5YVhSbElsMTlMQ0prY0cwaU9uc2lZV3hzYjNjaU9sc2ljbVZoWkNJc0luSmxjWFZsYzNRaUxDSjNjbWwwWlNKZGZTd2lZMjkxY0c5dUlqcDdJbUZzYkc5M0lqcGJJbkpsWVdRaUxDSnlaWEYxWlhOMElpd2lkM0pwZEdVaVhYMHNJbVpoWW5KcFl5STZleUpoYkd4dmR5STZXeUp5WldGa0lpd2ljbVZ4ZFdWemRDSXNJbmR5YVhSbElsMTlMQ0pqWVhSaGJHOW5JanA3SW1Gc2JHOTNJanBiSW5KbFlXUWlMQ0ozY21sMFpTSXNJbkpsY1hWbGMzUWlYWDBzSW5WelpYSWlPbnNpWVd4c2IzY2lPbHNpY21WaFpDSXNJbmR5YVhSbElpd2ljbVZ4ZFdWemRDSmRmWDBzSW5SbGJtRnVkRjlqYjI1bWFXY2lPbnNpZEdWdVlXNTBYMmxrSWpvaVIwSlNJaXdpYkc5allXeGxJam9pWlc0dFIwSWlmU3dpYVdGMElqb3hOVFk1TmpBd09Ea3pMQ0psZUhBaU9qRTFOamsyTVRRNE9UTXNJbTkwY0Y5MlpYSnBabWxsWkNJNmRISjFaWDAuMXFRaTZSclI5OGtOaE44NzFiWU8yR3IxdnNvay15LVV6NXZ2Y1R2RWVuNkZXWFE1dzBiOTRPazI3SkkzTUEwZDNyQkRXcDhNUnZrcWRaWGVPNnRyZ3c=",
-        "content-type": "application/json",
-        "kbn-version": "6.4.1"
+        authorization: authorization,
+        "content-type": "application/json",      
       },
       body: `{"query":{"bool":{"must":[{"match":{"runid":"${testrunid}"}}]}},"size":100,"sort":[{"orderdate":{"order":"desc"}}]}`
     }
